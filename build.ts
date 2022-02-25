@@ -1,6 +1,8 @@
 async function genTs() {
   function gen(names: string[]): string {
     const prelude = `
+import {dirname} from "https://deno.land/std@0.127.0/path/mod.ts";
+
 let libSuffix = "";
 switch (Deno.build.os) {
   case "windows":
@@ -14,7 +16,8 @@ switch (Deno.build.os) {
     break;
 
 }
-const libDdirs = \`./target/release/libddirs.\${libSuffix}\`;
+const location = dirname(import.meta.url.replace("file://",""))
+const libDdirs = \`\${location}/target/release/libddirs.\${libSuffix}\`;
     `;
     const fns = names.map((name) => `
 export function ${name}(): string | undefined {
