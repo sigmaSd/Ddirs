@@ -2,7 +2,7 @@
 
 Expose https://github.com/dirs-dev/dirs-rs as a Deno library
 
-#{ Building
+## Building
 
 `deno run -A buid.ts`
 
