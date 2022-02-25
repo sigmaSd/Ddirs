@@ -52,7 +52,7 @@ export function ${name}(): string | undefined {
     "template_dir",
     "video_dir",
   ]);
-  Deno.writeTextFile("./ddirs.ts", code);
+  await Deno.writeTextFile("./ddirs.ts", code);
   await Deno.run({
     cmd: ["deno", "fmt", "./ddirs.ts"],
   }).status();
