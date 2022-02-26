@@ -1,3 +1,5 @@
+import { dirname } from "https://deno.land/std@0.126.0/path/mod.ts";
+
 async function genTs() {
   function gen(names: string[]): string {
     const prelude = `
@@ -61,8 +63,18 @@ export function ${name}(): string | undefined {
   }).status();
 }
 async function buildRust() {
+  const location = dirname(import.meta.url.replace("file://", ""));
+  console.log(location);
   await Deno.run({
-    cmd: ["cargo", "build", "--release", "--target-dir", "./target/"],
+    cmd: [
+      "cargo",
+      "build",
+      "--manifest-path",
+      `${location}/Cargo.toml`,
+      "--release",
+      "--target-dir",
+      "./target/",
+    ],
   }).status();
 }
 
